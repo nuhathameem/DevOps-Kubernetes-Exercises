@@ -1,80 +1,94 @@
-# Kubernetes Hands-On Exercise Series
+# Exercise 1: Kubernetes Getting Started (Hello Pod)
 
-Welcome to Exercise-1 **Kubernetes (K8s) exercises**!  
-These activities will help you understand the basics of how Kubernetes runs and manages containerized applications.  
+## Objective
+
+Deploy a web application (Nginx, simulating Zepto's storefront) as a Pod on a local Kubernetes cluster using Minikube, and access it from the browser.
 
 ## Business Problem (Zepto Example)
 
-Imagine you are a **DevOps Engineer at Zepto** 
-The product team just built a lightweight **web app** that shows the **storefront and delivery status page** for customers.  
+Imagine you are a DevOps Engineer at Zepto. The product team has built a lightweight web application that displays the storefront and delivery status page for customers.
 
-Your task as the DevOps engineer:  
-**Deploy this app on Kubernetes** so that it is always running, portable, and can be scaled later.
-Simulate this  using the popular `nginx` container image (think of it as Zepto’s storefront web app).
+Your task is to deploy this application on Kubernetes so that it is always running, portable, and can be scaled later. This is simulated using the Nginx container image.
 
-## Exercise 1: Hello Pod
+## Environment
 
-**Goal:** Run your first app inside Kubernetes and access it.
+- Windows 11
+- Docker Desktop
+- Minikube with Docker driver
+- Kubernetes CLI (`kubectl`)
+- Microsoft PowerShell
+- Nginx container image
 
-## Pre-Requisites
-1. **Install Minikube (one-time setup)**
-   - On Linux:
-     ```bash
-     curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
-     sudo install minikube-linux-amd64 /usr/local/bin/minikube
-     ```
-   - On macOS (with Homebrew):
-     ```bash
-     brew install minikube
-     ```
-   - On Windows (PowerShell, run as Administrator):
-     ```powershell
-     choco install minikube
-     ```
-   - On WSL (Windows Linux)
-     Run these commands inside your **WSL terminal**:
-     ```bash
-     # Update system
-     sudo apt-get update -y
-     sudo apt-get install -y curl apt-transport-https virtualbox virtualbox-ext-pack
+## Steps and Commands
 
-     # Download Minikube
-     curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
+### 1. Start the Kubernetes Cluster
 
-     # Install Minikube binary
-     sudo install minikube-linux-amd64 /usr/local/bin/minikube
+Start the local Kubernetes cluster using Minikube.
 
-   > You need **Docker** or a VM driver (VirtualBox, Hyper-V) installed.
+```powershell
+minikube start --driver=docker
+```
 
-### Steps: Deploy Ngnix Image as a Pod
-1. Start a local Kubernetes cluster with **Minikube**:
-   ```bash
-   minikube start
-   
-2. Create your first Pod (using Nginx image):
-   ```bash
-   kubectl run hello-k8s --image=nginx --port=80
+### 2. Create a Pod Using the Nginx Image
 
-3. Verify the Pod is running:
-   ```bash
-   kubectl get pods
+Create a Kubernetes Pod named `hello-k8s` using the Nginx image.
 
-4. Expose the Pod as a Service:
-   ```bash
-   kubectl expose pod hello-k8s --type=NodePort --port=80
+```powershell
+kubectl run hello-k8s --image=nginx --port=80
+```
 
-5. Open the app in your browser:
-   ```bash
-   minikube service hello-k8s
+### 3. Verify the Pod Is Running
 
-You should see the Nginx welcome page. 
-Congratulations, you just deployed your first container in Kubernetes!
+Check the status of the Pod.
 
-## System Internal Details
-<p align="center">
-  <img src="../Images/k8s-exercise-1.jpg" alt="Kubernetes Internals" width="1000"/>
-</p>
+```powershell
+kubectl get pods
+```
 
-## 
+Wait until the Pod shows `1/1` under READY and `Running` under STATUS.
 
+### 4. Expose the Pod as a NodePort Service
 
+Expose the application so that it can be accessed from outside the cluster.
+
+```powershell
+kubectl expose pod hello-k8s --type=NodePort --port=80
+```
+
+### 5. Verify the Kubernetes Service
+
+Check whether the service has been created successfully.
+
+```powershell
+kubectl get services
+```
+
+### 6. Access the Application in the Browser
+
+Run the following command to open the application.
+
+```powershell
+minikube service hello-k8s
+```
+
+Minikube provides a local URL and opens the application in the browser. Keep the PowerShell terminal open while the service tunnel is running.
+
+The Nginx welcome page confirms that the application is running successfully.
+
+## Output Screenshots
+
+### 1. Kubernetes Pod and Service
+
+![Kubernetes Pod and Service](screenshots/Screenshot%202026-10-21%20183615.png)
+
+### 2. Nginx Welcome Page in Browser
+
+![Nginx Welcome Page](screenshots/Screenshot%202026-10-21%20190506.png)
+
+## Result
+
+Successfully created and verified a Kubernetes Pod running Nginx, exposed it through a NodePort service, and accessed the application through a web browser using Minikube.
+
+## Conclusion
+
+This exercise demonstrates the basic Kubernetes workflow of starting a local cluster, deploying a containerized application, verifying the Pod, exposing the application through a service, and accessing it from a browser.
