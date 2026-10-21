@@ -77,11 +77,11 @@ The Nginx welcome page confirms that the application is running successfully.
 
 ## Output Screenshots
 
-### 1. Kubernetes Pod and Service
+### 1. Nginx Welcome Page in Browser
 
 ![Kubernetes Pod and Service](screenshots/Screenshot%202026-10-21%20183615.png)
 
-### 2. Nginx Welcome Page in Browser
+### 2. Kubernetes Pod and Service
 
 ![Nginx Welcome Page](screenshots/Screenshot%202026-10-21%20190506.png)
 
