@@ -20,13 +20,18 @@ Create a Jenkins Pipeline that builds, tests and deploys a small Python Flask ap
 | Test Application | Runs `test_app.py` against the application code |
 
 ## Screenshots
-| File | Shows |
-|---|---|
-| `screenshots/1.png` | Terminal check of Python and the Flask version inside the Jenkins container |
-| `screenshots/2.png` | GitHub repo `devops-sample-code` with all five files after the upload commit |
-| `screenshots/3.png` | Jenkins job configuration: Pipeline script from SCM, Git repo URL, `*/main`, `Jenkinsfile` |
-| `screenshots/4.png` | Console Output ending in `Pipeline completed successfully!` and `Finished: SUCCESS` |
 
+### 1. Python and Flask check in the Jenkins container
+![Python and Flask check](screenshots/1.png)
+
+### 2. GitHub repo devops-sample-code with all five files
+![GitHub repo](screenshots/2.png)
+
+### 3. Jenkins job configuration
+![Job configuration](screenshots/3.png)
+
+### 4. Console Output: Finished: SUCCESS
+![Console output](screenshots/4.png)
 ## Notes
 - The container has Flask 3.1.1 installed from the Debian package. `requirements.txt` pins Flask 2.1.2, but the Build stage never runs `pip install`, so the tests use the installed version.
 - `flask.__version__` prints a deprecation warning in Flask 3.x, so the version was confirmed with `importlib.metadata` instead.
